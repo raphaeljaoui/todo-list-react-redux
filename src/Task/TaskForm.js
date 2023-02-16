@@ -2,10 +2,13 @@
 import React, { Component } from 'react';
 import { View, TextInput, StyleSheet, Button } from 'react-native';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addTask } from '../../redux';
 
 // create a component
-const TaskForm = ({addTask}) => {
+const TaskForm = () => {
     const [task, setTask] = useState("");
+    const dispatch = useDispatch();
 
     return (
         <View>
@@ -16,7 +19,7 @@ const TaskForm = ({addTask}) => {
             placeholder="useless placeholder"
         />
         <Button title="add Task" onPress={() => {
-            addTask(task)
+            dispatch(addTask(task));
             setTask("");    
         }}/>
         </View>

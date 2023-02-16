@@ -1,35 +1,34 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, Button} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteTask, toggleTask } from '../../redux';
 
 // create a component
-const TaskItem = ({
-    task,
-    toggleTask,
-    deleteTask
-}) => {
+const TaskItem = ({task}) => {
+    const dispatch = useDispatch();
+
     return(
         <View style={{marginTop: '5%'}}>
             <Text>{task.text}</Text>
             <View style={{flexDirection: 'row'}}>
-                <Button title={"check"} onPress={() => toggleTask(task.id)}/>
-                <Button title={"delete"} onPress={() => deleteTask(task.id)}/>
+                <Button title={"check"} onPress={() => dispatch(toggleTask(task.id))}/>
+                <Button title={"delete"} onPress={() =>dispatch(deleteTask(task.id)) }/>
             </View>
         </View>
     )
 }
 
-const TaskList = ({tasks, toggleTask, deleteTask}) => {
+const TaskList = () => {
+    const tasks = useSelector(state => state.todo)
+
     return (
         <View style={styles.container}>
             {tasks.map(t => {
                 return(
-
                     <TaskItem 
                     key={t.id}
                     task={t}
-                    toggleTask={toggleTask}
-                    deleteTask={deleteTask}
                     />
                     )
                 })}

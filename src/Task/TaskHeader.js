@@ -1,9 +1,11 @@
 //import liraries
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { useSelector } from 'react-redux';
 
 // create a component
-const TaskHeader = ({tasks}) => {
+const TaskHeader = () => {
+    const tasks = useSelector(state => state.todo)
     const undoneTasks = tasks.filter((t) => t.done === false);
 
     return (
